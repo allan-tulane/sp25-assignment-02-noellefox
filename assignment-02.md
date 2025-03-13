@@ -1,6 +1,6 @@
 # CMPS 2200 Assignment 2
 
-**Name:**_________________________
+**Name:**____Noelle Fox______
 
 In this assignment we'll work on applying the methods we've learned to analyze recurrences, and also see their behavior
 in practice. As with previous
@@ -14,7 +14,7 @@ and push to your github repository.
 
 Derive asymptotic upper bounds of work for each recurrence below.
 
-* $W(n)=2W(n/3)+1$
+* $W(n)=2W(n/3)+1$ -> W(n) = O(n^(log base3 2))
 .  
 .  
 . 
@@ -23,7 +23,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .  
 . 
  
-* $W(n)=5W(n/4)+n$
+* $W(n)=5W(n/4)+n$ -> W(n) = O(n^(log base4 5))
 .  
 .
 .  
@@ -34,7 +34,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .  
 . 
 
-* $W(n)=7W(n/7)+n$
+* $W(n)=7W(n/7)+n$ -> W(n) = O(n logn)
 .  
 . 
 .  
@@ -43,7 +43,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .  
 .
 
-* $W(n)=9W(n/3)+n^2$
+* $W(n)=9W(n/3)+n^2$ -> W(n) = O(n^2 logn)
 .  
 .
 . 
@@ -54,7 +54,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .  
 .
 
-* $W(n)=8W(n/2)+n^3$
+* $W(n)=8W(n/2)+n^3$ -> W(n) = O(n^3 logn)
 .  
 .
 .  
@@ -66,7 +66,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 . 
 
 
-* $W(n)=49W(n/25)+n^{3/2}\log n$
+* $W(n)=49W(n/25)+n^{3/2}\log n$ -> W(n) = O(n^3/2 logn)
 .  
 .  
 . 
@@ -76,7 +76,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .  
 .  
 
-* $W(n)=W(n-1)+2$
+* $W(n)=W(n-1)+2$ -> W(n) = O(n)
 .  
 .  
 . 
@@ -86,7 +86,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .  
 .  
 
-* $W(n)= W(n-1)+n^c$, with $c\geq 1$
+* $W(n)= W(n-1)+n^c$, with $c\geq 1$ -> W(n) = O(n^c+1)
 .  
 .  
 .  
@@ -96,7 +96,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .  
 . 
 
-* $W(n)=W(\sqrt{n})+1$
+* $W(n)=W(\sqrt{n})+1$ -> W(n) = O(log logn)
 .  
 .  
 .  
@@ -127,12 +127,14 @@ Suppose that for a given task you are choosing between the following three algor
     Which algorithm would you choose?
 
 
-.  
-.  
-.  
-.  
-. 
-. 
+    - A: W(n) = 5W(n/2) + O(n)
+        - W(n) = O(n^(log base 2(5)))
+    - B: W(n) = 2W(n-1) + O(1)
+        - W(n) = O(2^n)
+    - C: W(n) = 9W(n/3) + O(n^2)
+        - W(n) = O(n^2 logn)
+
+    - I would choose option C because as n increases it grows the slowest because it combines the quadratic n^2 with a logarithmic factor.
 
 
 
@@ -162,8 +164,10 @@ Below, we'll solve this problem three different ways, using iterate, scan, and d
 
 **enter answer here**
 
-.  
-. 
+- W(n) = W(n-1) + O(1)
+    - W(n) = O(n)
+- S(n) = S(n-1) + O(1)
+    - S(n) = O(n)
 
 
 
@@ -178,8 +182,12 @@ Below, we'll solve this problem three different ways, using iterate, scan, and d
 
 **enter answer here**
 
-.  
-.  
+- W(n) = 2W(n/2) + O(n)
+    - W(n) = O(n)
+        - Because the map, scan, and reduce functions all have a time complexity of O(n) since the function if run efficientlym the combination of the three will result in O(n) giving us the total work.
+- S(n) = W(n/2) + O(log n)
+    - S(n) = O(n)
+        - While the span of the parallelized scan function is equal to O(log n), span represents the longest dependent chain of operations which in this case comes from the sequential span of reduce which is O(n)
 
 
 
@@ -199,8 +207,12 @@ Below, we'll solve this problem three different ways, using iterate, scan, and d
 
 **enter answer here**
 
-.  
-. 
+- W(n) = 2W(n/2) + O(1)
+    - W(n) = O(n)
+        - the work is equal to O(n) because it is implementing divide and conquer as usual by splitting it into two subproblems and splitting it in half. The additional work done is constant at O(1). Because the additional work is constant it is root dominated and the work is O(n)
+- S(n) = S(n/2) + O(1)
+    - S(n) = O(log n)
+        - Upon expansion it is evident that it is forming a logarithmic recurrence; therefore, the path of the longest dependence will be in logarithmic terms, O(log n)
 
 
  

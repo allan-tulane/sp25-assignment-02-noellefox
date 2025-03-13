@@ -22,6 +22,22 @@ def parens_match_iterative(mylist):
     >>>parens_match_iterative(['('])
     False
     """
+    def iterate(function, state, mylist):
+        #iterates through the list and calls the function on each element
+
+        #initial output - to modify while going over the list
+        current_output = state
+        #iterate over every item 
+        for element in mylist:
+            current_output = function(current_output, element)
+
+            #account for an invalid state
+            if current_output == -math.inf:
+                break
+        #return the final output        
+        return current_output
+    
+        
     ### TODO
     return iterate(parens_update, 0, mylist) == 0
     ###
@@ -42,13 +58,18 @@ def parens_update(current_output, next_input):
     ###TODO
     if current_output == -math.inf:  # in an invalid state; carry it forward
         return current_output
+        
     if next_input == '(':            # new open parens 
         return current_output + 1
+        
     elif next_input == ')':          # new close parens
+        
         if current_output <= 0:      # close before an open -> invalid
             return -math.inf
+            
         else:                        # valid
             return current_output - 1
+            
     else:                            # ignore non-parens input
         return current_output
     ###
@@ -77,9 +98,26 @@ def parens_match_scan(mylist):
     
     """
     ###TODO
+
+    #define plus function that is used
+    def plus(x, y):
+        return x + y
+
     history, last = scan(plus, 0, list(map(paren_map, mylist)))
     return last == 0 and reduce(min_f, 0, history) >= 0
     ###
+
+
+#define reduce function that is used in both scan functions
+def reduce(function, state, mylist):
+    #initial value to change throughout code
+    current_output = state
+    #iterate over every item in the list
+    for element in mylist:
+        current_output = function(current_output, element)
+
+    #return the final output
+    return current_output
 
 def scan(f, id_, a):
     """
@@ -139,6 +177,8 @@ def parens_match_dc(mylist):
     n_unmatched_left, n_unmatched_right = parens_match_dc_helper(mylist)
     return n_unmatched_left==0 and n_unmatched_right==0
 
+
+
 def parens_match_dc_helper(mylist):
     """
     Recursive, divide and conquer solution to the parens match problem.
@@ -151,7 +191,7 @@ def parens_match_dc_helper(mylist):
     ###TODO
     # Base cases
     if len(mylist) == 0:
-        return [0,0]
+        return (0,0)
     elif len(mylist) == 1:
         if mylist[0] == '(':
             return (0, 1) # one unmatched (
@@ -159,8 +199,9 @@ def parens_match_dc_helper(mylist):
             return (1, 0) # one unmatched )    
         else:
             return (0, 0)
-    i,j = parens_match_dc_helper(mylist[:len(mylist)//2])
-    k,l = parens_match_dc_helper(mylist[len(mylist)//2:])
+    i,j = parens_match_dc_helper(mylist[:len(mylist)//2]) #left half
+    k,l = parens_match_dc_helper(mylist[len(mylist)//2:]) #right half
+    
     # Combination:
     # Return the tuple (R,L) using some combination of the values i,j,k,l defined above.
     # This should be done in constant time.
@@ -168,6 +209,9 @@ def parens_match_dc_helper(mylist):
         return (i, l + j - k)
     else:
         return (i + k - j, l)
+
+
+    
     ###
     
 
